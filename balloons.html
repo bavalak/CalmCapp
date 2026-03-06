@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<title>Release Balloons | CalmConnect</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    font-family:'Segoe UI';
+    background:linear-gradient(to top,#87ceeb,#e0f7ff);
+    overflow:hidden;
+}
+
+/* Container */
+.container{
+    position:absolute;
+    bottom:40px;
+    width:100%;
+    text-align:center;
+}
+
+/* Input */
+input{
+    width:320px;
+    padding:14px;
+    border:none;
+    border-radius:25px;
+    font-size:16px;
+    outline:none;
+}
+
+/* Button */
+button{
+    margin-top:15px;
+    padding:12px 30px;
+    border:none;
+    border-radius:25px;
+    background:#ff8c94;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+/* Balloon */
+.balloon{
+    position:absolute;
+    bottom:-150px;
+    left:50%;
+    width:80px;
+    height:100px;
+    background:#ff8c94;
+    border-radius:50% 50% 50% 50%;
+    transform:translateX(-50%);
+    animation:float 8s linear forwards;
+}
+
+/* Balloon string */
+.balloon::after{
+    content:'';
+    position:absolute;
+    bottom:-40px;
+    left:50%;
+    width:2px;
+    height:40px;
+    background:#555;
+}
+
+/* Floating animation */
+@keyframes float{
+    0%{ bottom:-150px; opacity:1; }
+    100%{ bottom:110%; opacity:0; }
+}
+
+/* Message */
+#message{
+    margin-top:20px;
+    font-size:18px;
+    color:#333;
+    opacity:0;
+    transition:opacity 2s;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>🎈 Release your stress</h2>
+<p>Write a thought and let it float away</p>
+
+<input id="thought" placeholder="What's weighing on your mind?">
+<br>
+<button onclick="releaseBalloon()">Release</button>
+
+<div id="message">You let it go 🌿 Breathe easy.</div>
+</div>
+
+<script>
+function releaseBalloon(){
+    let text=document.getElementById("thought");
+    if(text.value===""){
+        alert("Write something first 💚");
+        return;
+    }
+
+    // Save released thought (optional)
+    let released=JSON.parse(localStorage.getItem("released"))||[];
+    released.push({text:text.value,time:new Date().toLocaleString()});
+    localStorage.setItem("released",JSON.stringify(released));
+
+    // Create balloon
+    let balloon=document.createElement("div");
+    balloon.className="balloon";
+
+    // Random color
+    let colors=["#ff8c94","#ffd3b6","#a8e6cf","#dcedc1","#ffaaa5"];
+    balloon.style.background=colors[Math.floor(Math.random()*colors.length)];
+
+    // Random horizontal position
+    balloon.style.left=Math.random()*80+10+"%";
+
+    document.body.appendChild(balloon);
+
+    text.value="";
+
+    // Remove balloon after animation
+    setTimeout(()=>balloon.remove(),8000);
+
+    // Show message
+    let msg=document.getElementById("message");
+    msg.style.opacity=1;
+    setTimeout(()=>msg.style.opacity=0,6000);
+}
+</script>
+
+<p>Relax and pop balloons</p>
+
+<button onclick="go('dashboard.html')">⬅ Back</button>
+
+<script src="script.js"></script>
+<button onclick="window.location='home.html'">🏠 Home</button>
+
+</body>
+</html>
+
+
