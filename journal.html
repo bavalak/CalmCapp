@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Journal | CalmConnect</title>
+  <style>
+    body {
+      margin:0;
+      font-family:'Segoe UI', cursive;
+      background:linear-gradient(to top right, #fbc2eb, #a6c1ee);
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:20px;
+    }
+    h2 {
+      margin-bottom:10px;
+      color:#333;
+    }
+    textarea {
+      width:80%;
+      height:200px;
+      padding:20px;
+      font-size:1.1em;
+      font-family:'Segoe UI', cursive;
+      background:#fff url('https://www.transparenttextures.com/patterns/cream-paper.png');
+      border:1px solid #ccc;
+      border-radius:10px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      resize:none;
+      line-height:1.6em;
+    }
+    button {
+      margin:10px;
+      padding:10px 20px;
+      border:none;
+      border-radius:20px;
+      background:#6a82fb;
+      color:#fff;
+      font-size:16px;
+      cursor:pointer;
+      transition:transform 0.3s;
+    }
+    button:hover {
+      transform:scale(1.05);
+      background:#fc5c7d;
+    }
+    .entries {
+      margin-top:30px;
+      width:80%;
+    }
+    .entry {
+      background:#fff url('https://www.transparenttextures.com/patterns/cream-paper.png');
+      padding:15px;
+      margin-bottom:15px;
+      border-radius:10px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+      font-family:'Segoe UI', cursive;
+      white-space:pre-wrap;
+      line-height:1.6em;
+    }
+    .entry strong {
+      display:block;
+      margin-bottom:8px;
+      color:#444;
+    }
+  </style>
+</head>
+<body>
+  <h2>📓 My Journal</h2>
+  <p>Write your thoughts below — like a real notebook.</p>
+
+  <textarea id="journalInput" placeholder="Start writing..."></textarea>
+  <div>
+    <button onclick="saveEntry()">Save Entry</button>
+    <button onclick="window.location='dashboard.html'">⬅ Back</button>
+    <button onclick="window.location='home.html'">🏠 Home</button>
+  </div>
+
+  <div class="entries" id="entries"></div>
+
+  <script>
+    function saveEntry() {
+      let text = document.getElementById("journalInput").value.trim();
+      if(text) {
+        let entries = JSON.parse(localStorage.getItem("journalEntries") || "[]");
+        entries.unshift({date:new Date().toLocaleString(), text:text});
+        localStorage.setItem("journalEntries", JSON.stringify(entries));
+        document.getElementById("journalInput").value = "";
+        loadEntries();
+      }
+    }
+
+    function loadEntries() {
+      let entries = JSON.parse(localStorage.getItem("journalEntries") || "[]");
+      let container = document.getElementById("entries");
+      container.innerHTML = "";
+      entries.forEach(e => {
+        let div = document.createElement("div");
+        div.className = "entry";
+        div.innerHTML = `<strong>${e.date}</strong>${e.text}`;
+        container.appendChild(div);
+      });
+    }
+
+    // Load saved entries on page open
+    loadEntries();
+  </script>
+</body>
+</html>
