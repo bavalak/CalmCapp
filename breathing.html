@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calm Breathing</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#d6f1ff,#f3e8ff);
+}
+
+h1{
+color:#444;
+margin-bottom:30px;
+}
+
+#orb{
+width:150px;
+height:150px;
+border-radius:50%;
+background:radial-gradient(circle,#7fd8ff,#4aa3ff);
+transition:transform 4s ease;
+box-shadow:0 0 40px rgba(0,150,255,0.6);
+}
+
+.expand{
+transform:scale(1.8);
+}
+
+button{
+padding:12px 26px;
+font-size:16px;
+margin-top:40px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#5fa4ff;
+color:white;
+}
+
+button:hover{
+background:#407de6;
+}
+
+#message{
+margin-top:20px;
+font-size:20px;
+color:#333;
+text-align:center;
+width:320px;
+min-height:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🌬️ Calm Breathing</h1>
+
+<div id="orb"></div>
+
+<button id="startBtn">Start Breathing</button>
+
+<div id="message">Press start to begin a calm breathing cycle</div>
+
+<script>
+
+const affirmations=[
+"You are safe and calm.",
+"Let go of tension.",
+"Breathe in peace.",
+"Your mind is becoming quiet.",
+"Everything will be okay."
+]
+
+const orb=document.getElementById("orb")
+const message=document.getElementById("message")
+const startBtn=document.getElementById("startBtn")
+
+function startBreathing(){
+
+startBtn.disabled=true
+
+message.innerText="Inhale slowly..."
+
+orb.classList.add("expand")
+
+setTimeout(()=>{
+
+orb.classList.remove("expand")
+
+let random=Math.floor(Math.random()*affirmations.length)
+
+message.innerText="Exhale slowly... "+affirmations[random]
+
+},4000)
+
+setTimeout(()=>{
+
+message.innerText="✨ Great job! You completed a calm breathing cycle."
+
+startBtn.disabled=false
+
+},10000)
+
+}
+
+startBtn.addEventListener("click",startBreathing)
+
+</script>
+
+</body>
+</html>
