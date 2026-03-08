@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CalmConnect | Welcome</title>
+  <title>CalmConnect | Home</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -16,42 +16,48 @@
       text-align:center;
       color:#fff;
     }
-    .welcome {
-      animation: fadeIn 3s ease-in-out;
+    .cards {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      max-width:600px;
+      margin:auto;
+    }
+    .card {
+      background:rgba(255,255,255,0.2);
+      padding:30px;
+      border-radius:20px;
+      font-size:1.2em;
+      cursor:pointer;
+      text-decoration:none;
+      color:#fff;
+      transition:transform 0.3s, background 0.3s;
+    }
+    .card:hover {
+      transform:scale(1.05);
+      background:rgba(255,255,255,0.3);
     }
     h1 {
-      font-size:3em;
+      font-size:2.5em;
       margin-bottom:0.2em;
     }
     p {
       font-size:1.2em;
-      margin-bottom:1.5em;
-    }
-    button {
-      padding:14px 32px;
-      border:none;
-      border-radius:30px;
-      background:#6a82fb;
-      color:#fff;
-      font-size:18px;
-      cursor:pointer;
-      transition:transform 0.3s;
-    }
-    button:hover {
-      transform:scale(1.1);
-      background:#fc5c7d;
-    }
-    @keyframes fadeIn {
-      from {opacity:0;}
-      to {opacity:1;}
+      margin-bottom:2em;
     }
   </style>
 </head>
 <body>
-  <div class="welcome">
+  <div>
     <h1>🌿 CalmConnect</h1>
     <p>Your safe space to relax, breathe & heal</p>
-    <button onclick="window.location='login.html'">Login to Begin</button>
+
+    <section class="cards">
+      <a class="card" href="support.html">💬 Chat Support</a>
+      <a class="card" href="breathing.html">🫁 Breathing Exercise</a>
+      <a class="card" href="balloons.html">🎮 Stress Relax Game</a>
+      <a class="card" href="journal.html">📓 My Journal</a>
+    </section>
   </div>
 </body>
 </html>
