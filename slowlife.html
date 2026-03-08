@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🐢 Slow Life Game</title>
+  <style>
+    body {
+      margin:0;
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      font-family:'Segoe UI', sans-serif;
+      background:linear-gradient(to top, #fbc2eb, #a6c1ee);
+      text-align:center;
+      color:#333;
+    }
+    h2 { margin-bottom:10px; }
+    #gameArea {
+      position:relative;
+      width:80%;
+      height:300px;
+      border:2px solid #ccc;
+      border-radius:10px;
+      background:linear-gradient(to bottom, #e0f7fa, #80deea);
+      overflow:hidden;
+    }
+    #turtle {
+      position:absolute;
+      bottom:10px;
+      left:10px;
+      font-size:2em;
+    }
+    #ocean {
+      position:absolute;
+      right:10px;
+      bottom:0;
+      width:80px;
+      height:100%;
+      background:linear-gradient(to top, #2196f3, #64b5f6);
+      border-radius:10px;
+    }
+    button {
+      margin-top:20px;
+      padding:12px 24px;
+      border:none;
+      border-radius:20px;
+      background:#6a82fb;
+      color:#fff;
+      font-size:16px;
+      cursor:pointer;
+      transition:transform 0.3s;
+    }
+    button:hover {
+      transform:scale(1.05);
+      background:#fc5c7d;
+    }
+    #message {
+      margin-top:15px;
+      font-size:1.2em;
+      color:#444;
+    }
+  </style>
+</head>
+<body>
+  <h2>🐢 Slow Life Game</h2>
+  <p>Tap slowly to help the turtle reach the ocean.</p>
+
+  <div id="gameArea">
+    <div id="turtle">🐢</div>
+    <div id="ocean"></div>
+  </div>
+
+  <button onclick="moveTurtle()">Tap to Move</button>
+  <div id="message"></div>
+
+  <script>
+    let lastTap = 0;
+    let position = 10; // turtle's left position
+
+    function moveTurtle() {
+      let now = Date.now();
+      let diff = now - lastTap;
+
+      if(diff < 1000 && lastTap !== 0) {
+        // tapped too fast
+        document.getElementById("message").textContent = "Slow down. Life is not a race.";
+        return;
+      }
+
+      // move turtle forward
+      position += 20;
+      document.getElementById("turtle").style.left = position + "px";
+      document.getElementById("message").textContent = "";
+
+      // check win condition
+      let gameAreaWidth = document.getElementById("gameArea").offsetWidth;
+      if(position + 40 >= gameAreaWidth - 80) {
+        document.getElementById("message").textContent = "🌊 The turtle reached the ocean! Calm victory.";
+      }
+
+      lastTap = now;
+    }
+  </script>
+</body>
+</html>
