@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CalmConnect Dashboard</title>
+  <style>
+    body {
+      margin:0;
+      font-family:'Segoe UI', sans-serif;
+      background:url("https://images.unsplash.com/photo-1506748686214-3f4fa3f0c5a3") 
+        no-repeat center center/cover;
+      color:#fff;
+    }
+    header {
+      background:rgba(0,0,0,0.5);
+      padding:20px;
+      color:white;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    header h2 { margin:0; }
+    button {
+      background:#5fa4a9;
+      color:white;
+      border:none;
+      padding:10px 20px;
+      border-radius:30px;
+      cursor:pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover { background:#4a8c91; transform:scale(1.05); }
+    .container {
+      padding:30px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap:20px;
+    }
+    .card {
+      background:rgba(255,255,255,0.85);
+      border-radius:20px;
+      padding:25px;
+      color:#333;
+      box-shadow:0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .card:hover { transform: scale(1.05); }
+    .stats {
+      display:flex;
+      gap:15px;
+      margin-bottom:20px;
+    }
+    .stat {
+      flex:1;
+      background:#fff;
+      border-radius:15px;
+      padding:15px;
+      text-align:center;
+      font-weight:bold;
+      box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    }
+    /* Breathing Circle */
+    .breath-wrapper {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+    .circle {
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:#d9eded;
+      box-shadow:0 0 25px rgba(95,164,169,0.6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      font-weight:bold;
+      margin:20px 0;
+      transition: transform 10s ease-in-out;
+    }
+    #breathText { font-size:18px; margin-bottom:10px; }
+    textarea {
+      width:100%;
+      padding:10px;
+      margin-top:10px;
+      border-radius:10px;
+      border:1px solid #ccc;
+    }
+    /* Horizontal Quick Links */
+    .quick-links {
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      margin-top:20px;
+      flex-wrap:wrap;
+    }
+    .quick-links button {
+      flex:1;
+      max-width:150px;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h2>🌿 CalmConnect Dashboard</h2>
+  <button onclick="goHome()">Home</button>
+</header>
+
+<div class="container">
+
+  <!-- Stats -->
+  <div class="card">
+    <h3>📊 Your Stats</h3>
+    <div class="stats">
+      <div class="stat" id="avgTime">🕒 Avg: 0 min</div>
+      <div class="stat" id="totalTime">⏳ Total: 0 min</div>
+      <div class="stat" id="sessions">📈 Sessions: 0</div>
+    </div>
+  </div>
+
+  <!-- Breathing Meditation -->
+  <div class="card">
+    <h3>🫁 20‑Second Breathing Meditation</h3>
+    <div class="breath-wrapper">
+      <p id="breathText">Click start</p>
+      <div class="circle" id="circle">🌿</div>
+      <button onclick="startBreathing()">Start Meditation</button>
+    </div>
+  </div>
+
+  <!-- Journal -->
+  <div class="card">
+    <h3>📓 My Journal</h3>
+    <textarea id="journal" placeholder="Write your feelings..."></textarea>
+    <button onclick="saveJournal()">Save</button>
+  </div>
+
+</div>
+
+<!-- Horizontal Quick Links -->
+<div class="quick-links">
+  <button onclick="go('balloons.html')">🎈 Balloon Pop</button>
+  <button onclick="go('release.html')">🧘 Release</button>
+  <button onclick="go('support.html')">💬 Support</button>
+  <button onclick="go('ground.html')">🌱 Ground</button>
+  <button onclick="go('reframe.html')">🧠 Reframe</button>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+function goHome(){ window.location="home.html"; }
+function go(page){ window.location=page; }
+function logout(){ sessionStorage.clear(); window.location="login.html"; }
+
+/* Journal - session only */
+const journal = document.getElementById("journal");
+journal.value = sessionStorage.getItem("journal") || "";
+function saveJournal(){
+  sessionStorage.setItem("journal", journal.value);
+  alert("Journal saved for this session 💚");
+}
+
+/* Stats Tracking */
+let sessions = parseInt(localStorage.getItem("sessions") || "0");
+let totalTime = parseInt(localStorage.getItem("totalTime") || "0");
+function updateStats(){
+  document.getElementById("sessions").innerText = "📈 Sessions: " + sessions;
+  document.getElementById("totalTime").innerText = "⏳ Total: " + totalTime + " min";
+  let avg = sessions ? Math.round(totalTime/sessions) : 0;
+  document.getElementById("avgTime").innerText = "🕒 Avg: " + avg + " min";
+}
+updateStats();
+
+/* Breathing Meditation */
+function startBreathing(){
+  let circle = document.getElementById("circle");
+  let text = document.getElementById("breathText");
+
+  text.innerText = "Breathe In 🌿";
+  circle.style.transform = "scale(1.5)";
+
+  setTimeout(()=>{
+    text.innerText = "Breathe Out 🌬️";
+    circle.style.transform = "scale(1)";
+  },10000); // halfway
+
+  setTimeout(()=>{
+    text.innerText = "Well done 💖";
+    sessions++;
+    totalTime += 0.33; // ~20 sec = 0.33 min
+    localStorage.setItem("sessions", sessions);
+    localStorage.setItem("totalTime", totalTime);
+    updateStats();
+  },20000); // full cycle
+}
+</script>
+
+</body>
+</html>

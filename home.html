@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CalmConnect</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>🌿 CalmConnect</h1>
+<p>Your safe space to relax, breathe & heal</p>
+</header>
+
+<section class="cards">
+
+<div class="card" onclick="openSection('chat')">
+💬 Chat Support
+</div>
+
+<div class="card" onclick="openSection('breath')">
+🫁 Breathing Exercise
+</div>
+
+<div class="card" onclick="openSection('game')">
+🎮 Stress Relax Game
+</div>
+
+<div class="card" onclick="openSection('journal')">
+📓 My Journal
+</div>
+
+</section>
+
+<!-- CHAT -->
+<div class="popup" id="chat">
+<h2>Support Chat</h2>
+<div id="chatBox"></div>
+<input id="chatInput" placeholder="Type how you feel...">
+<button onclick="sendMsg()">Send</button>
+<button onclick="closeSection('chat')">Close</button>
+</div>
+
+<!-- BREATHING -->
+<div class="popup" id="breath">
+<h2>Breathing Exercise</h2>
+<p id="breathText">Click start</p>
+<button onclick="startBreathing()">Start 2-Minute Exercise</button>
+<button onclick="closeSection('breath')">Close</button>
+</div>
+
+<!-- GAME -->
+<div class="popup" id="game">
+<h2>Stress Relax Game</h2>
+<p>Click the circle slowly to relax</p>
+<div id="circle" onclick="relaxClick()"></div>
+<p id="score">Relax count: 0</p>
+<button onclick="closeSection('game')">Close</button>
+</div>
+
+<!-- JOURNAL -->
+<div class="popup journal" id="journal">
+<h2>My Cute Journal 💖</h2>
+<textarea id="journalText" placeholder="Write your thoughts..."></textarea>
+<button onclick="saveJournal()">Save</button>
+<button onclick="closeSection('journal')">Close</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

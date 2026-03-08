@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Worry Shredder | CalmConnect</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin:0;
+      font-family:'Segoe UI', sans-serif;
+      background:#fceabb;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      transition:background 1s;
+    }
+    .container {
+      text-align:center;
+    }
+    textarea {
+      width:300px;
+      height:80px;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid #cf3a78b6;
+      margin-bottom:20px;
+      font-size:16px;
+    }
+    .worry {
+      display:inline-block;
+      padding:10px 20px;
+      background:#00a9c7;
+      border:1px solid #999;
+      border-radius:6px;
+      cursor:grab;
+      margin-top:10px;
+    }
+    /* SpongeBob mouth shredder */
+    .shredder {
+      margin:30px auto;
+      width:240px;
+      height:120px;
+      background:#ffcc00;
+      border:5px solid #333;
+      border-radius:0 0 120px 120px;
+      position:relative;
+      overflow:hidden;
+      font-weight:bold;
+      color:#333;
+      line-height:120px;
+    }
+    .shredder::before {
+      content:"";
+      position:absolute;
+      top:-40px;
+      left:50%;
+      transform:translateX(-50%);
+      width:200px;
+      height:40px;
+      background:#ffcc00;
+      border:5px solid #333;
+      border-radius:120px 120px 0 0;
+    }
+    /* Box to catch shredded paper */
+    .box {
+      margin:20px auto;
+      width:260px;
+      height:120px;
+      border:3px dashed #333;
+      border-radius:10px;
+      background:#fafafa;
+      position:relative;
+    }
+    .piece {
+      display:inline-block;
+      background:red;
+      padding:5px;
+      margin:2px;
+      animation:fall 1s forwards;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(80px) rotate(90deg);
+        opacity:0.7;
+      }
+    }
+    #message {
+      margin-top:20px;
+      font-size:18px;
+      color:#333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🧾 Worry Shredder</h2>
+    <textarea id="worryText" placeholder="Type your worry here..."></textarea><br>
+    <button onclick="createWorry()">Create Worry</button>
+
+    <div id="worryContainer"></div>
+
+    <div class="shredder" id="shredder">Drop your worry🫨</div>
+    <div class="box" id="box"></div>
+    <div id="message"></div>
+
+    <button onclick="window.location='home.html'">🏠 Home</button>
+  </div>
+
+  <script>
+    function createWorry(){
+      let text = document.getElementById("worryText").value;
+      if(text===""){ alert("Write your worry first 💚"); return; }
+      let div = document.createElement("div");
+      div.className="worry";
+      div.innerText=text;
+      div.draggable=true;
+      div.ondragstart = e => e.dataTransfer.setData("text", text);
+      document.getElementById("worryContainer").innerHTML="";
+      document.getElementById("worryContainer").appendChild(div);
+      document.getElementById("worryText").value="";
+    }
+
+    let shredder = document.getElementById("shredder");
+    shredder.ondragover = e => e.preventDefault();
+    shredder.ondrop = e => {
+      let text = e.dataTransfer.getData("text");
+      document.getElementById("worryContainer").innerHTML="";
+      // Flash background vibrant yellow
+      document.body.style.background="#ffeb3b";
+      let box = document.getElementById("box");
+      box.innerHTML="";
+      // Create shredded red pieces
+      for(let char of text){
+        let span=document.createElement("span");
+        span.className="piece";
+        span.innerText=char;
+        box.appendChild(span);
+      }
+      // After animation, show reassurance
+      setTimeout(()=>{
+        document.getElementById("message").innerText="✨ Your worry has been shredded!";
+        document.body.style.background="#fceabb"; // reset background
+      },2000);
+    };
+  </script>
+</body>
+</html>

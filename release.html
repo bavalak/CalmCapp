@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+
+<title>CalmConnect Home</title>
+<style>
+body{
+    margin:0;
+    font-family:Segoe UI;
+    background:url("https://images.unsplash.com/photo-1469474968028-56623f02e42e")
+    no-repeat center center/cover;
+    height:100vh;
+    color:white;
+}
+header{
+    background:rgba(0,0,0,0.4);
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+}
+button{
+    border:none;
+    padding:10px 20px;
+    border-radius:20px;
+    cursor:pointer;
+}
+.main{
+    padding:50px;
+}
+.card{
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(10px);
+    padding:25px;
+    margin:20px 0;
+    border-radius:20px;
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+    cursor:pointer;
+}
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeUp 0.8s ease forwards;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>🌿 CalmConnect</h2>
+<button onclick="logout()">Logout</button>
+</header>
+
+<div class="main">
+<div class="card" onclick="goDashboard()">
+<h3>Welcome to CalmConnect</h3>
+<p>Your mental wellness dashboard</p>
+</div>
+
+<div class="card">
+<h3>🧘 Meditations</h3>
+<p>Relax your mind</p>
+</div>
+
+<div class="card" onclick="goDashboard()">
+<h3>💬 Support & Self Care</h3>
+<p>Mood • Journal • Chat • Breathing</p>
+</div>
+</div>
+<button onclick="window.location='release.html'">
+🌌 Release Stress
+</button>
+<button onclick="window.location='support.html'">
+🆘 24×7 Crisis Support
+</button>
+<button onclick="window.location='balloons.html'">
+🎈 Release Balloons
+</button>
+<button onclick="window.location='ground.html'">🌿 Ground Me Now</button>
+<button onclick="window.location='reframe.html'">🌸 Thought Reframe</button>
+
+<script>
+function logout(){ window.location="home.html"; }
+function goDashboard(){ window.location="dashboard.html"; }
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>

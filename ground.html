@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ground Me Now | CalmConnect</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI';
+    background:linear-gradient(to bottom,#c9e4de,#eaf6f6);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+    background:white;
+    padding:40px;
+    width:380px;
+    text-align:center;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    animation:fadeIn 2s;
+}
+
+h2{
+    margin-bottom:10px;
+}
+p{
+    font-size:18px;
+    color:#444;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 30px;
+    border:none;
+    border-radius:25px;
+    background:#5fa4a9;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>🌿 Ground Me Now</h2>
+<p id="step">Click start to begin</p>
+<button onclick="start()">Start</button>
+</div>
+
+<script>
+let steps=[
+"👀 Name 3 things you can see",
+"👂 Name 2 things you can hear",
+"🫁 Take 1 slow deep breath",
+"💚 You are safe right now"
+];
+
+let index=0;
+
+function start(){
+    index=0;
+    showStep();
+}
+
+function showStep(){
+    if(index < steps.length){
+        document.getElementById("step").innerText=steps[index];
+        index++;
+        setTimeout(showStep,15000);
+    }
+}
+
+</script>
+<button onclick="window.location='home.html'">🏠 Home</button>
+
+</body>
+</html>

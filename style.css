@@ -1,0 +1,74 @@
+body{
+margin:0;
+font-family:'Segoe UI';
+background:linear-gradient(120deg,#f6d1ff,#d7e8ff);
+text-align:center;
+}
+
+header{
+padding:30px;
+color:#4a3c8c;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+cursor:pointer;
+font-size:18px;
+transition:0.3s;
+}
+.card:hover{
+transform:scale(1.05);
+}
+
+.popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:25px;
+width:300px;
+border-radius:20px;
+box-shadow:0 0 30px rgba(0,0,0,0.3);
+}
+
+.journal{
+background:url("https://images.unsplash.com/photo-1519681393784-d120267933ba") center/cover;
+color:white;
+}
+
+textarea,input{
+width:90%;
+padding:10px;
+border-radius:10px;
+border:none;
+margin:10px 0;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:#6b6bcf;
+color:white;
+cursor:pointer;
+}
+
+#circle{
+width:80px;
+height:80px;
+background:#6b6bcf;
+border-radius:50%;
+margin:15px auto;
+}
