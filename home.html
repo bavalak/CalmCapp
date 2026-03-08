@@ -1,68 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CalmConnect | Home</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      margin:0;
-      height:100vh;
-      font-family:'Segoe UI', sans-serif;
-      background:rgba(255,255,255,0.15);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      color:#fff;
-    }
-    .cards {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:20px;
-      max-width:600px;
-      margin:auto;
-    }
-    .card {
-      background:rgba(255,255,255,0.2);
-      padding:30px;
-      border-radius:20px;
-      font-size:1.2em;
-      cursor:pointer;
-      text-decoration:none;
-      color:#fff;
-      transition:transform 0.3s, background 0.3s;
-    }
-    .card:hover {
-      transform:scale(1.05);
-      background:rgba(255,255,255,0.3);
-    }
-    h1 {
-      font-size:2.5em;
-      margin-bottom:0.2em;
-    }
-    p {
-      font-size:1.2em;
-      margin-bottom:2em;
-    }
-  </style>
-</head>
-<body>
-  <div>
-    <h1>🌿 CalmConnect</h1>
-    <p>Your safe space to relax, breathe & heal</p>
+<meta charset="UTF-8">
+<title>CalmConnect | Home</title>
 
-    <section class="cards">
-      <a class="card" href="support.html">💬 helpline</a>
-      <a class="card" href="breathing.html">breathe in - out </a>
-      <a class="card" href="slowlife.html">help the tortoise </a>
-      <a class="card" href="balloons.html">🎮 Stress Relax Game</a>
-      <a class="card" href="journal.html">📓 My Journal</a>
-    </section>
-  </div>
+<style>
+
+/* PAGE BACKGROUND */
+
+body{
+margin:0;
+height:100vh;
+font-family:'Segoe UI',sans-serif;
+
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+
+color:white;
+
+/* Professional calm gradient */
+
+background:linear-gradient(120deg,#1c2b3a,#2f4f6f,#3a6073);
+}
+
+/* MAIN CONTAINER */
+
+.container{
+max-width:720px;
+padding:20px;
+}
+
+/* TITLE */
+
+h1{
+font-size:50px;
+margin-bottom:10px;
+letter-spacing:1px;
+
+text-shadow:
+0 0 10px rgba(255,255,255,0.3),
+0 0 20px rgba(173,216,230,0.25);
+}
+
+/* SUBTITLE */
+
+p{
+font-size:18px;
+opacity:0.9;
+margin-bottom:35px;
+}
+
+/* GRID CARDS */
+
+.cards{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:22px;
+}
+
+/* CARD STYLE */
+
+.card{
+background:rgba(255,255,255,0.12);
+padding:30px;
+border-radius:18px;
+font-size:1.15em;
+text-decoration:none;
+color:white;
+cursor:pointer;
+
+backdrop-filter:blur(10px);
+
+border:1px solid rgba(255,255,255,0.2);
+
+box-shadow:0 10px 25px rgba(0,0,0,0.35);
+
+transition:all 0.35s ease;
+}
+
+/* CARD HOVER */
+
+.card:hover{
+transform:translateY(-6px) scale(1.05);
+background:rgba(255,255,255,0.22);
+
+box-shadow:
+0 18px 40px rgba(0,0,0,0.45);
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width:600px){
+
+.cards{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌿 CalmConnect</h1>
+
+<p>Your safe space to relax, breathe & heal</p>
+
+<section class="cards">
+
+<a class="card" href="support.html">
+💬 Helpline
+</a>
+
+<a class="card" href="breathing.html">
+🌬 Breathe In - Out
+</a>
+
+<a class="card" href="slowlife.html">
+🐢 Help the Tortoise
+</a>
+
+<a class="card" href="balloons.html">
+🎮 Stress Relax Game
+</a>
+
+<a class="card" href="journal.html">
+📓 My Journal
+</a>
+
+</section>
+
+</div>
+
 </body>
 </html>
-
-
-
-
