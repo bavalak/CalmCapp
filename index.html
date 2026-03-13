@@ -3,340 +3,458 @@
 <head>
 <meta charset="UTF-8">
 <title>CalmConnect | About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --primary: #4a6fa5;        /* Professional calm blue-teal */
+  --primary-dark: #2f4a7a;
+  --accent: #5a9a8e;         /* Soft teal-green for wellness feel */
+  --bg-dark: #0f172a;        /* Deep navy/gray for professional bg */
+  --glass: rgba(15, 23, 42, 0.65);
+  --text-light: #e2e8f0;
+  --text-muted: #94a3b8;
+  --blur: blur(16px);
+}
 
-body{
-margin:0;
-font-family:"Segoe UI",Arial;
-background:#F8FAFC;
-color:#1E293B;
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: var(--text-light);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 15% 20%, rgba(90,154,142,0.08) 0%, transparent 50%),
+              radial-gradient(circle at 85% 80%, rgba(74,111,165,0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Floating particles - softer & fewer for professionalism */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+canvas { display: block; }
+
+/* MENU BUTTON */
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  color: var(--text-light);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.menu-btn:hover { transform: translateY(-3px) scale(1.05); }
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  left: -280px;
+  top: 0;
+  width: 280px;
+  height: 100%;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border-right: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-light);
+  padding-top: 90px;
+  transition: left 0.4s cubic-bezier(0.23,1,0.32,1);
+  z-index: 1000;
+  box-shadow: 12px 0 40px rgba(0,0,0,0.5);
+}
+
+.sidebar.open { left: 0; }
+
+.sidebar a {
+  display: block;
+  padding: 18px 32px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 1.05rem;
+  transition: all 0.25s;
+}
+
+.sidebar a:hover {
+  background: rgba(90,154,142,0.15);
+  color: white;
+  padding-left: 40px;
 }
 
 /* HEADER */
-
-header{
-display:flex;
-align-items:center;
-padding:18px 60px;
-background:white;
-box-shadow:0 2px 10px rgba(0,0,0,0.06);
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  padding: 18px 50px;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  z-index: 900;
 }
 
-.logo{
-font-size:22px;
-font-weight:700;
-color:#6366F1;
-}
-
-/* MENU BUTTON */
-
-.menu-btn{
-position:fixed;
-top:20px;
-left:20px;
-background:#6366F1;
-color:white;
-width:45px;
-height:45px;
-border-radius:10px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-cursor:pointer;
-box-shadow:0 4px 10px rgba(0,0,0,0.2);
-transition:0.3s;
-z-index:1001;
-}
-
-.menu-btn:hover{
-background:#4F46E5;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-position:fixed;
-left:-250px;
-top:0;
-width:250px;
-height:100%;
-background:#111827;
-color:white;
-padding-top:80px;
-transition:0.3s;
-z-index:1000;
-}
-
-.sidebar a{
-display:block;
-padding:15px 25px;
-color:#E5E7EB;
-text-decoration:none;
-font-size:16px;
-}
-
-.sidebar a:hover{
-background:#374151;
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;               /* Smaller & more professional */
+  font-weight: 700;
+  color: white;
+  letter-spacing: 1px;
 }
 
 /* HERO */
-
-.hero{
-height:340px;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-position:relative;
-overflow:hidden;
-color:white;
+.hero {
+  height: 100vh;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-/* SLIDESHOW */
-
-.slide{
-position:absolute;
-width:100%;
-height:100%;
-background-size:cover;
-background-position:center;
-opacity:0;
-transition:opacity 1.5s ease;
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 2s ease, transform 2s ease;
+  transform: scale(1.05);
 }
 
-.slide.active{
-opacity:1;
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
 }
 
-.hero::after{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.45);
-top:0;
-left:0;
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(15,23,42,0.55), rgba(30,41,59,0.75));
+  z-index: 1;
 }
 
-/* HERO CONTENT */
-
-.hero-content{
-position:relative;
-z-index:2;
-background:rgba(99,102,241,0.25);
-backdrop-filter:blur(8px);
-padding:25px 45px;
-border-radius:14px;
+.hero-content-wrapper {
+  perspective: 1400px;
+  width: 88%;
+  max-width: 860px;
+  z-index: 2;
 }
 
-.hero-content h1{
-margin:0;
-font-size:34px;
+.hero-card {
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 50px 40px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45), inset 0 0 50px rgba(255,255,255,0.05);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+  animation: gentleFloat 14s ease-in-out infinite;
 }
 
-.hero-content p{
-margin-top:10px;
-font-size:15px;
-max-width:500px;
+@keyframes gentleFloat {
+  0%,100% { transform: translateY(0) rotateX(3deg) rotateY(-2deg); }
+  50%     { transform: translateY(-20px) rotateX(3deg) rotateY(-2deg); }
 }
 
-/* ABOUT */
-
-.container{
-max-width:1000px;
-margin:auto;
-padding:70px 25px;
+.hero-content-wrapper:hover .hero-card {
+  transform: translateY(-10px) rotateX(1.5deg) rotateY(1.5deg);
 }
 
-.about-card{
-background:white;
-padding:50px;
-border-radius:14px;
-box-shadow:0 8px 20px rgba(0,0,0,0.06);
+.hero-card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 7vw, 4.8rem);   /* Reduced max size */
+  margin: 0 0 0.3em;
+  color: white;
+  text-shadow: 0 3px 15px rgba(0,0,0,0.5);
 }
 
-.about-card h2{
-color:#6366F1;
-margin-bottom:20px;
+.hero-card p {
+  font-size: clamp(1.1rem, 2.8vw, 1.35rem);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.65;
+  color: var(--text-muted);
 }
 
-.about-card p{
-line-height:1.8;
-color:#475569;
+/* ABOUT SECTION */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 100px 25px 120px;
+  position: relative;
+  z-index: 2;
+}
+
+.about-card {
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 28px;
+  padding: 55px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+  color: var(--text-light);
+}
+
+.about-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  color: var(--accent);
+  margin-bottom: 1.4em;
+}
+
+.about-card p {
+  line-height: 1.85;
+  font-size: 1.08rem;
+  color: var(--text-muted);
+  margin-bottom: 1.6em;
 }
 
 /* FOOTER */
-
-footer{
-background:#111827;
-color:white;
-padding:60px 60px;
-margin-top:60px;
+footer {
+  background: rgba(15,23,42,0.95);
+  backdrop-filter: blur(14px);
+  color: var(--text-muted);
+  padding: 90px 50px 50px;
+  margin-top: 60px;
 }
 
-.footer-container{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:40px;
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 45px;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
-footer h4{
-margin-bottom:15px;
+footer h4 {
+  color: white;
+  font-size: 1.25rem;
+  margin-bottom: 1.3em;
 }
 
-footer a{
-display:block;
-color:#9CA3AF;
-text-decoration:none;
-margin-bottom:8px;
+footer a {
+  display: block;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 0.8em;
+  transition: all 0.22s;
 }
 
-footer a:hover{
-color:white;
+footer a:hover {
+  color: white;
+  transform: translateX(6px);
 }
 
-.copyright{
-text-align:center;
-margin-top:30px;
-color:#9CA3AF;
+.copyright {
+  text-align: center;
+  margin-top: 70px;
+  padding-top: 35px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.95rem;
 }
 
+/* Pop animation */
+@keyframes pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12) translateY(-8px); }
+  70%  { transform: scale(0.96) translateY(3px); }
+  100% { transform: scale(1); }
+}
+.pop { animation: pop 0.52s ease forwards; }
 </style>
 </head>
-
 <body>
 
-<!-- MENU BUTTON -->
+<!-- Particles -->
+<div class="particles"><canvas id="canvas"></canvas></div>
 
+<!-- MENU BUTTON -->
 <div class="menu-btn" onclick="toggleMenu()">☰</div>
 
 <!-- SIDEBAR -->
-
 <div class="sidebar" id="sidebar">
-
-<a href="login.html">Login</a>
-<a href="landing.html">Landing Page</a>
-
+  <a href="login.html" onclick="this.classList.add('pop'); setTimeout(()=>this.classList.remove('pop'),600)">Login</a>
+  <a href="landing.html" onclick="this.classList.add('pop'); setTimeout(()=>this.classList.remove('pop'),600)">Landing Page</a>
 </div>
 
 <!-- HEADER -->
-
 <header>
-<div class="logo">🌿 CalmConnect</div>
+  <div class="logo">🌿 CalmConnect</div>
 </header>
 
 <!-- HERO -->
-
 <section class="hero">
+  <div class="slide active" style="background-image:url('mental1.jpg')"></div>
+  <div class="slide" style="background-image:url('mental2.jpg')"></div>
 
-<div class="slide active" style="background-image:url('mental1.jpg')"></div>
-<div class="slide" style="background-image:url('mental2.jpg')"></div>
-
-<div class="hero-content">
-<h1>CalmConnect</h1>
-<p>
-A digital platform designed to help people relax, reflect and improve their mental wellbeing through mindfulness tools.
-</p>
-</div>
-
+  <div class="hero-content-wrapper">
+    <div class="hero-card" id="heroCard">
+      <h1>CalmConnect</h1>
+      <p>
+        A peaceful digital sanctuary created to help you relax, reflect, and nurture your mental wellbeing with gentle mindfulness tools.
+      </p>
+    </div>
+  </div>
 </section>
 
 <!-- ABOUT -->
-
 <div class="container">
-
-<div class="about-card">
-
-<h2>About CalmConnect</h2>
-
-<p>
-CalmConnect is a digital mental wellness platform designed to support individuals in managing stress,
-improving emotional health, and practicing mindfulness in everyday life.
-</p>
-
-<p>
-The system provides guided meditation, calming sound therapy, and personal reflection tools that help
-users reconnect with their mental wellbeing.
-</p>
-
-<p>
-Our mission is to create a peaceful digital environment where users can pause, breathe, and build
-healthier emotional habits.
-</p>
-
-</div>
-
+  <div class="about-card">
+    <h2>About CalmConnect</h2>
+    <p>
+      CalmConnect is a thoughtfully designed mental wellness companion that supports you in reducing stress,
+      cultivating emotional balance, and bringing more calm into daily life.
+    </p>
+    <p>
+      Through soothing guided meditations, ambient soundscapes, breathing exercises, and private journaling space,
+      we help you reconnect with yourself in a kind and non-judgmental way.
+    </p>
+    <p>
+      Our vision is simple: offer a safe, beautiful corner of the internet where anyone can pause, breathe deeply,
+      and gently build healthier emotional patterns — one moment at a time.
+    </p>
+  </div>
 </div>
 
 <!-- FOOTER -->
-
 <footer>
-
-<div class="footer-container">
-
-<div>
-<h4>About</h4>
-<a href="#">Project Overview</a>
-<a href="#">Features</a>
-<a href="#">Technology</a>
-<a href="#">Future Scope</a>
-</div>
-
-<div>
-<h4>Resources</h4>
-<a href="#">Meditation</a>
-<a href="#">Mindfulness</a>
-<a href="#">Stress Relief</a>
-<a href="#">Mental Health</a>
-</div>
-
-<div>
-<h4>Support</h4>
-<a href="#">Help Center</a>
-<a href="#">FAQs</a>
-<a href="#">Contact</a>
-<a href="#">Feedback</a>
-</div>
-
-</div>
-
-<div class="copyright">
-© 2026 CalmConnect | Mental Wellness Platform
-</div>
-
+  <div class="footer-container">
+    <div>
+      <h4>About</h4>
+      <a href="#">Project Overview</a>
+      <a href="#">Features</a>
+      <a href="#">Technology</a>
+      <a href="#">Future Scope</a>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <a href="#">Meditation</a>
+      <a href="#">Mindfulness</a>
+      <a href="#">Stress Relief</a>
+      <a href="#">Mental Health</a>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <a href="#">Help Center</a>
+      <a href="#">FAQs</a>
+      <a href="#">Contact</a>
+      <a href="#">Feedback</a>
+    </div>
+  </div>
+  <div class="copyright">
+    © 2026 CalmConnect • A gentle space for mental wellness
+  </div>
 </footer>
 
 <script>
-
-/* HERO SLIDESHOW */
-
-let slides=document.querySelectorAll(".slide");
-let index=0;
-
-setInterval(()=>{
-slides[index].classList.remove("active");
-index=(index+1)%slides.length;
-slides[index].classList.add("active");
-},5000);
-
-
-/* SIDEBAR MENU */
-
-function toggleMenu(){
-
-let sidebar=document.getElementById("sidebar");
-
-if(sidebar.style.left==="0px"){
-sidebar.style.left="-250px";
-}else{
-sidebar.style.left="0px";
+// Sidebar toggle
+function toggleMenu() {
+  document.getElementById("sidebar").classList.toggle("open");
 }
 
+// Slideshow
+const slides = document.querySelectorAll(".slide");
+let idx = 0;
+setInterval(() => {
+  slides[idx].classList.remove("active");
+  idx = (idx + 1) % slides.length;
+  slides[idx].classList.add("active");
+}, 6000);
+
+// 3D tilt
+const card = document.getElementById("heroCard");
+if (card) {
+  card.addEventListener("mousemove", e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top  - rect.height / 2;
+    const rotateY = (x / rect.width) * 14;
+    const rotateX = -(y / rect.height) * 14;
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateX(3deg) rotateY(-2deg) translateY(0)";
+  });
 }
 
+// Particles (softer, less saturated)
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let particles = [];
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2.5 + 1;
+    this.speedY = Math.random() * 0.3 + 0.1;
+    this.opacity = Math.random() * 0.25 + 0.05;
+  }
+  update() {
+    this.y -= this.speedY;
+    if (this.y < -20) this.reset();
+  }
+  draw() {
+    ctx.fillStyle = `rgba(90, 154, 142, ${this.opacity})`;  // Teal-green tint
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function init() {
+  particles = [];
+  for (let i = 0; i < 50; i++) particles.push(new Particle());  // Fewer for cleaner look
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  init();
+});
+
+init();
+animate();
 </script>
-
 </body>
 </html>
