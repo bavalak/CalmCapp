@@ -3,374 +3,402 @@
 <head>
 <meta charset="UTF-8">
 <title>CalmConnect | Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-
-body{
-margin:0;
-min-height:100vh;
-font-family:'Segoe UI',sans-serif;
-
-display:flex;
-justify-content:center;
-align-items:flex-start;
-
-text-align:center;
-color:white;
-
-padding-top:40px;
-
-background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
-no-repeat center center/cover;
+:root {
+  --glass: rgba(255, 255, 255, 0.08);
+  --blur: blur(16px);
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent: #5a9a8e;
+  --shadow: 0 20px 60px rgba(0,0,0,0.4);
 }
 
-/* soft overlay */
+* { margin:0; padding:0; box-sizing:border-box; }
 
-body::before{
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(20,40,60,0.55);
-z-index:-1;
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  background: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") no-repeat center center / cover fixed;
+  color: var(--text);
+  overflow-x: hidden;
+  position: relative;
 }
 
-.container{
-max-width:760px;
-padding:20px;
-position:relative;
-z-index:1;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(15,23,42,0.65), rgba(30,41,59,0.75));
+  z-index: -2;
 }
 
-/* TITLE */
-
-h1{
-font-size:50px;
-margin-bottom:10px;
-letter-spacing:1px;
-
-text-shadow:
-0 0 10px rgba(84, 235, 25, 0.4),
-0 0 25px rgba(173,216,230,0.3);
+/* Floating particles */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 
-/* SUBTITLE */
-
-.subtitle{
-font-size:18px;
-opacity:0.9;
-margin-bottom:8px;
+/* Main container with 3D float */
+.perspective-container {
+  perspective: 1400px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
 }
 
-.description{
-font-size:15px;
-opacity:0.75;
-margin-bottom:25px;
+.main-content {
+  max-width: 820px;
+  width: 100%;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 28px;
+  padding: 50px 40px;
+  box-shadow: var(--shadow), inset 0 0 60px rgba(255,255,255,0.04);
+  transform-style: preserve-3d;
+  animation: float 12s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
 }
 
-/* GREETING */
-
-#greeting{
-font-size:20px;
-margin-bottom:15px;
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotateX(4deg) rotateY(-3deg); }
+  50%      { transform: translateY(-25px) rotateX(4deg) rotateY(-3deg); }
 }
 
-/* QUOTE */
-
-.quote{
-background:rgba(185, 19, 88, 0.384);
-padding:15px;
-border-radius:12px;
-margin-bottom:25px;
-font-style:italic;
+.main-content:hover {
+  transform: translateY(-12px) rotateX(2deg) rotateY(2deg);
 }
 
-/* MOOD */
-
-.mood-box{
-background:rgba(125, 158, 71, 0.897);
-padding:15px;
-border-radius:12px;
-margin-bottom:30px;
+/* Typography */
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 8vw, 4.6rem);
+  margin-bottom: 12px;
+  color: white;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  text-align: center;
 }
 
-.mood-btn{
-font-size:26px;
-margin:8px;
-cursor:pointer;
-transition:0.25s;
+.subtitle {
+  font-size: 1.35rem;
+  opacity: 0.92;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
-.mood-btn:hover{
-transform:scale(1.4);
+.description {
+  font-size: 1.05rem;
+  opacity: 0.8;
+  margin-bottom: 30px;
+  text-align: center;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* CHAT */
-
-#chatBox{
-height:160px;
-overflow:auto;
-text-align:left;
-background:rgba(0,0,0,0.25);
-padding:10px;
-border-radius:8px;
-margin-bottom:10px;
+#greeting {
+  font-size: 1.3rem;
+  margin: 20px 0 30px;
+  text-align: center;
+  color: var(--accent);
 }
 
-#chatInput{
-width:100%;
-padding:10px;
-border-radius:8px;
-border:none;
+/* Quote */
+.quote {
+  background: rgba(90,154,142,0.18);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  border-radius: 16px;
+  margin: 0 auto 35px;
+  max-width: 680px;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: center;
+  border: 1px solid rgba(90,154,142,0.25);
 }
 
-button{
-margin-top:10px;
-padding:8px 16px;
-border:none;
-border-radius:8px;
-background:#5fa4a9;
-color:white;
-cursor:pointer;
+/* Mood Section */
+.mood-section {
+  background: rgba(90,154,142,0.12);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
-/* CARDS */
-
-.cards{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:22px;
+.mood-section b {
+  font-size: 1.3rem;
+  display: block;
+  margin-bottom: 18px;
 }
 
-.card{
-background:rgba(255,255,255,0.15);
-padding:28px;
-border-radius:18px;
-font-size:1.1em;
-text-decoration:none;
-color:white;
-
-cursor:pointer;
-
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.2);
-
-box-shadow:0 10px 25px rgba(0,0,0,0.35);
-
-transition:all 0.35s ease;
+.mood-btn {
+  font-size: 2.8rem;
+  margin: 0 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  transform-style: preserve-3d;
 }
 
-.card:hover{
-transform:translateY(-6px) scale(1.05);
-background:rgba(255,255,255,0.25);
-box-shadow:0 18px 40px rgba(0,0,0,0.45);
+.mood-btn:hover {
+  transform: scale(1.5) translateY(-6px) rotateX(15deg);
 }
 
-@media(max-width:600px){
-
-.cards{
-grid-template-columns:1fr;
+#moodResult {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 
+/* Chat Section */
+.chat-section {
+  background: rgba(90,154,142,0.12);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 40px;
 }
 
+#chatBox {
+  height: 180px;
+  overflow-y: auto;
+  background: rgba(0,0,0,0.2);
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+#chatInput {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-size: 1rem;
+}
+
+button {
+  margin-top: 12px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+button:hover {
+  background: #4a8276;
+  transform: translateY(-2px);
+}
+
+/* Feature Cards – 3D floating grid */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.card {
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  font-size: 1.15rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+  transform-style: preserve-3d;
+}
+
+.card:hover {
+  transform: translateY(-12px) rotateX(8deg) rotateY(6deg) scale(1.04);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  background: rgba(255,255,255,0.14);
+}
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<div class="particles"><canvas id="canvas"></canvas></div>
 
-<h1>🌿 CalmConnect</h1>
+<div class="perspective-container">
+  <div class="main-content">
+    <h1>🌿 CalmConnect</h1>
+    <div class="subtitle">Your safe space to relax, breathe & heal</div>
+    <div class="description">A gentle digital companion for emotional well-being and mindful living</div>
 
-<div class="subtitle">
-Your safe space to relax, breathe & heal
-</div>
+    <div id="greeting"></div>
 
-<div class="description">
-A digital space designed to support emotional well-being and mindful living
-</div>
+    <div class="quote" id="quote"></div>
 
-<div id="greeting"></div>
+    <!-- Mood Tracker -->
+    <div class="mood-section">
+      <b>How are you feeling today?</b>
+      <div style="margin: 24px 0;">
+        <span class="mood-btn" onclick="saveMood('Happy')">😊</span>
+        <span class="mood-btn" onclick="saveMood('Calm')">😌</span>
+        <span class="mood-btn" onclick="saveMood('Neutral')">😐</span>
+        <span class="mood-btn" onclick="saveMood('Sad')">😔</span>
+        <span class="mood-btn" onclick="saveMood('Stressed')">😣</span>
+      </div>
+      <p id="moodResult"></p>
+    </div>
 
-<div class="quote" id="quote"></div>
+    <!-- CalmBot Chat -->
+    <div class="chat-section">
+      <b>Talk to CalmBot</b>
+      <div id="chatBox">
+        <p><b>CalmBot:</b> Hi 🌿 I'm here for you. How are you feeling right now?</p>
+      </div>
+      <input id="chatInput" placeholder="Tell me what's on your mind...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
 
-<!-- MOOD -->
-
-<div class="mood-box">
-
-<b>How are you feeling today?</b><br><br>
-
-<span class="mood-btn" onclick="saveMood('Happy')">😊</span>
-<span class="mood-btn" onclick="saveMood('Calm')">😌</span>
-<span class="mood-btn" onclick="saveMood('Neutral')">😐</span>
-<span class="mood-btn" onclick="saveMood('Sad')">😔</span>
-<span class="mood-btn" onclick="saveMood('Stressed')">😣</span>
-
-<p id="moodResult"></p>
-
-</div>
-
-<!-- CALMBOT -->
-
-<div class="mood-box">
-
-<b>Talk to CalmBot</b><br><br>
-
-<div id="chatBox">
-<p><b>CalmBot:</b> Hi 🌿 I'm CalmBot. Tell me how you're feeling today.</p>
-</div>
-
-<input id="chatInput" placeholder="Tell me what's on your mind...">
-
-<button onclick="sendMessage()">Send</button>
-
-</div>
-
-<!-- FEATURE CARDS -->
-
-<section class="cards">
-
-<a class="card" href="worry.html">📝 Shred Your Worries</a>
-
-<a class="card" href="breathing.html">🌬 Breathe Exercise</a>
-
-<a class="card" href="slowlife.html">🐢 Help the Tortoise</a>
-
-<a class="card" href="balloons.html">🎮 Stress Relax Game</a>
-
-<a class="card" href="journal.html">📓 My Journal</a>
-
-<a class="card" href="dashboard.html">📊 Mood Dashboard</a>
-
-<a class="card" href="support.html">💬 Helpline</a>
-
-</section>
-
+    <!-- Feature Cards -->
+    <section class="cards">
+      <a class="card" href="worry.html">📝 Shred Your Worries</a>
+      <a class="card" href="breathing.html">🌬 Breathing Exercise</a>
+      <a class="card" href="slowlife.html">🐢 Help the Tortoise</a>
+      <a class="card" href="balloons.html">🎮 Stress Relief Game</a>
+      <a class="card" href="journal.html">📓 My Journal</a>
+      <a class="card" href="dashboard.html">📊 Mood Dashboard</a>
+      <a class="card" href="support.html">💬 Helpline & Support</a>
+    </section>
+  </div>
 </div>
 
 <script>
+// Greeting
+const hour = new Date().getHours();
+let greet = "";
+if (hour < 12) greet = "☀ Good Morning – take a slow, deep breath";
+else if (hour < 18) greet = "🌤 Good Afternoon – may you feel centered";
+else greet = "🌙 Good Evening – time to soften and rest";
+document.getElementById("greeting").innerText = greet;
 
-/* GREETING */
-
-let hour=new Date().getHours();
-let greet="";
-
-if(hour<12) greet="☀ Good Morning, take a deep breath.";
-else if(hour<18) greet="🌤 Good Afternoon, stay calm and focused.";
-else greet="🌙 Good Evening, relax and unwind.";
-
-document.getElementById("greeting").innerText=greet;
-
-/* QUOTES */
-
-let quotes=[
-
-"Take a deep breath. You are stronger than you think.",
-"Small steps every day lead to big change.",
-"Your mind deserves peace.",
-"Pause. Breathe. Reset.",
-"You are doing better than you think."
-
+// Random Quote
+const quotes = [
+  "Take a deep breath. You are stronger than you think.",
+  "Small steps every day lead to big change.",
+  "Your mind deserves peace.",
+  "Pause. Breathe. Reset.",
+  "You are doing better than you think."
 ];
+document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
 
-document.getElementById("quote").innerText=
-quotes[Math.floor(Math.random()*quotes.length)];
-
-/* MOOD */
-
-const moodMessages={
-
-Happy:[
-"That's wonderful 🌞",
-"Your happiness is powerful.",
-"Write this moment in your journal 💛"
-],
-
-Calm:[
-"Enjoy the calm 🌿",
-"Take another slow breath.",
-"Calm minds create clear thoughts."
-],
-
-Neutral:[
-"It's okay to feel neutral.",
-"Maybe try the breathing exercise.",
-"A small walk may refresh your mind."
-],
-
-Sad:[
-"I'm sorry you're feeling this way 💙",
-"You are not alone.",
-"Tomorrow can be brighter."
-],
-
-Stressed:[
-"Let's slow down together.",
-"Take a deep breath 🌿",
-"Stress is temporary."
-]
-
+// Mood Tracker
+const moodMessages = {
+  Happy: ["That's beautiful 🌞", "Your light is powerful.", "Savor this moment."],
+  Calm:  ["Beautiful stillness 🌿", "Let this calm expand.", "Perfect place to be."],
+  Neutral: ["It's okay to simply be.", "Neutral is a soft place to rest.", "Ready for a gentle shift?"],
+  Sad:   ["I'm here with you 💙", "Your feelings are welcome.", "You're allowed to feel this."],
+  Stressed: ["Let's slow everything down.", "One breath at a time 🌿", "This feeling will pass."]
 };
 
-function saveMood(mood){
-
-localStorage.setItem("todayMood",mood);
-
-let responses=moodMessages[mood];
-
-let randomMessage=
-responses[Math.floor(Math.random()*responses.length)];
-
-document.getElementById("moodResult").innerHTML=
-
-"Your mood today: <b>"+mood+"</b><br><br>"+randomMessage;
-
+function saveMood(mood) {
+  localStorage.setItem("todayMood", mood);
+  const responses = moodMessages[mood];
+  const msg = responses[Math.floor(Math.random() * responses.length)];
+  document.getElementById("moodResult").innerHTML = 
+    `<b>Today:</b> ${mood}<br><span style="opacity:0.9">${msg}</span>`;
 }
 
-/* CHAT BOT */
+// Simple Chat
+function sendMessage() {
+  const input = document.getElementById("chatInput");
+  const box = document.getElementById("chatBox");
+  if (!input.value.trim()) return;
 
-function sendMessage(){
+  const userText = input.value.toLowerCase();
+  box.innerHTML += `<p><b>You:</b> ${input.value}</p>`;
 
-let input=document.getElementById("chatInput");
-let box=document.getElementById("chatBox");
+  let reply = "I'm listening... tell me more when you're ready 🌿";
 
-if(input.value.trim()=="") return;
+  if (/sad|hurt|pain|down/.test(userText)) {
+    reply = "I'm really sorry you're carrying this 💙. Want to share a bit more?";
+  } else if (/stress|stressed|tired|overwhelm/.test(userText)) {
+    reply = "That sounds heavy. Let's take three slow breaths together right now 🌿";
+  } else if (/happy|good|great|nice/.test(userText)) {
+    reply = "I'm so glad to hear that 🌞 What brought this feeling today?";
+  } else if (/angry|mad|frustrated/.test(userText)) {
+    reply = "It's okay to feel angry. That energy deserves space too.";
+  }
 
-let userText=input.value.toLowerCase();
-
-let userMsg="<p><b>You:</b> "+input.value+"</p>";
-
-let botReply="";
-
-if(userText.includes("sad")||userText.includes("hurt")||userText.includes("pain"))
-botReply="I'm sorry you're feeling this way 💙. Want to tell me what happened?";
-
-else if(userText.includes("stress")||userText.includes("tired"))
-botReply="That sounds overwhelming. Take a slow breath with me 🌿.";
-
-else if(userText.includes("happy")||userText.includes("good"))
-botReply="That's wonderful 🌞. What made you feel happy today?";
-
-else if(userText.includes("angry"))
-botReply="I hear your frustration. It's okay to feel angry sometimes.";
-
-else
-botReply="Your feelings are valid. Tell me more about it.";
-
-let botMsg="<p><b>CalmBot:</b> "+botReply+"</p>";
-
-box.innerHTML+=userMsg+botMsg;
-
-input.value="";
-
-box.scrollTop=box.scrollHeight;
-
+  box.innerHTML += `<p><b>CalmBot:</b> ${reply}</p>`;
+  input.value = "";
+  box.scrollTop = box.scrollHeight;
 }
 
+// Background particles
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2.8 + 1;
+    this.speedY = Math.random() * 0.4 + 0.15;
+    this.opacity = Math.random() * 0.3 + 0.08;
+  }
+  update() {
+    this.y -= this.speedY;
+    if (this.y < -20) this.reset();
+  }
+  draw() {
+    ctx.fillStyle = `rgba(90, 154, 142, ${this.opacity})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function initParticles() {
+  particles = [];
+  for (let i = 0; i < 60; i++) particles.push(new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  initParticles();
+});
+
+initParticles();
+animateParticles();
 </script>
-
 </body>
 </html>
