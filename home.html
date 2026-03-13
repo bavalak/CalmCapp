@@ -6,30 +6,42 @@
 
 <style>
 
-/* PAGE BACKGROUND */
-
 body{
 margin:0;
-height:100vh;
+min-height:100vh;
 font-family:'Segoe UI',sans-serif;
 
 display:flex;
 justify-content:center;
-align-items:center;
-text-align:center;
+align-items:flex-start;
 
+text-align:center;
 color:white;
 
-/* Professional calm gradient */
+padding-top:40px;
 
-background:linear-gradient(120deg,#1c2b3a,#2f4f6f,#3a6073);
+background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
+no-repeat center center/cover;
 }
 
-/* MAIN CONTAINER */
+/* soft overlay */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(20,40,60,0.55);
+z-index:-1;
+}
 
 .container{
-max-width:720px;
+max-width:760px;
 padding:20px;
+position:relative;
+z-index:1;
 }
 
 /* TITLE */
@@ -40,19 +52,91 @@ margin-bottom:10px;
 letter-spacing:1px;
 
 text-shadow:
-0 0 10px rgba(255,255,255,0.3),
-0 0 20px rgba(173,216,230,0.25);
+0 0 10px rgba(84, 235, 25, 0.4),
+0 0 25px rgba(173,216,230,0.3);
 }
 
 /* SUBTITLE */
 
-p{
+.subtitle{
 font-size:18px;
 opacity:0.9;
-margin-bottom:35px;
+margin-bottom:8px;
 }
 
-/* GRID CARDS */
+.description{
+font-size:15px;
+opacity:0.75;
+margin-bottom:25px;
+}
+
+/* GREETING */
+
+#greeting{
+font-size:20px;
+margin-bottom:15px;
+}
+
+/* QUOTE */
+
+.quote{
+background:rgba(185, 19, 88, 0.384);
+padding:15px;
+border-radius:12px;
+margin-bottom:25px;
+font-style:italic;
+}
+
+/* MOOD */
+
+.mood-box{
+background:rgba(125, 158, 71, 0.897);
+padding:15px;
+border-radius:12px;
+margin-bottom:30px;
+}
+
+.mood-btn{
+font-size:26px;
+margin:8px;
+cursor:pointer;
+transition:0.25s;
+}
+
+.mood-btn:hover{
+transform:scale(1.4);
+}
+
+/* CHAT */
+
+#chatBox{
+height:160px;
+overflow:auto;
+text-align:left;
+background:rgba(0,0,0,0.25);
+padding:10px;
+border-radius:8px;
+margin-bottom:10px;
+}
+
+#chatInput{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:none;
+}
+
+button{
+margin-top:10px;
+padding:8px 16px;
+border:none;
+border-radius:8px;
+background:#5fa4a9;
+color:white;
+cursor:pointer;
+}
+
+/* CARDS */
 
 .cards{
 display:grid;
@@ -60,19 +144,17 @@ grid-template-columns:1fr 1fr;
 gap:22px;
 }
 
-/* CARD STYLE */
-
 .card{
-background:rgba(255,255,255,0.12);
-padding:30px;
+background:rgba(255,255,255,0.15);
+padding:28px;
 border-radius:18px;
-font-size:1.15em;
+font-size:1.1em;
 text-decoration:none;
 color:white;
+
 cursor:pointer;
 
 backdrop-filter:blur(10px);
-
 border:1px solid rgba(255,255,255,0.2);
 
 box-shadow:0 10px 25px rgba(0,0,0,0.35);
@@ -80,17 +162,11 @@ box-shadow:0 10px 25px rgba(0,0,0,0.35);
 transition:all 0.35s ease;
 }
 
-/* CARD HOVER */
-
 .card:hover{
 transform:translateY(-6px) scale(1.05);
-background:rgba(255,255,255,0.22);
-
-box-shadow:
-0 18px 40px rgba(0,0,0,0.45);
+background:rgba(255,255,255,0.25);
+box-shadow:0 18px 40px rgba(0,0,0,0.45);
 }
-
-/* MOBILE RESPONSIVE */
 
 @media(max-width:600px){
 
@@ -101,7 +177,6 @@ grid-template-columns:1fr;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -110,36 +185,192 @@ grid-template-columns:1fr;
 
 <h1>🌿 CalmConnect</h1>
 
-<p>Your safe space to relax, breathe & heal</p>
+<div class="subtitle">
+Your safe space to relax, breathe & heal
+</div>
+
+<div class="description">
+A digital space designed to support emotional well-being and mindful living
+</div>
+
+<div id="greeting"></div>
+
+<div class="quote" id="quote"></div>
+
+<!-- MOOD -->
+
+<div class="mood-box">
+
+<b>How are you feeling today?</b><br><br>
+
+<span class="mood-btn" onclick="saveMood('Happy')">😊</span>
+<span class="mood-btn" onclick="saveMood('Calm')">😌</span>
+<span class="mood-btn" onclick="saveMood('Neutral')">😐</span>
+<span class="mood-btn" onclick="saveMood('Sad')">😔</span>
+<span class="mood-btn" onclick="saveMood('Stressed')">😣</span>
+
+<p id="moodResult"></p>
+
+</div>
+
+<!-- CALMBOT -->
+
+<div class="mood-box">
+
+<b>Talk to CalmBot</b><br><br>
+
+<div id="chatBox">
+<p><b>CalmBot:</b> Hi 🌿 I'm CalmBot. Tell me how you're feeling today.</p>
+</div>
+
+<input id="chatInput" placeholder="Tell me what's on your mind...">
+
+<button onclick="sendMessage()">Send</button>
+
+</div>
+
+<!-- FEATURE CARDS -->
 
 <section class="cards">
 
-<a class="card" href="support.html">
-💬 Helpline
-</a>
+<a class="card" href="worry.html">📝 Shred Your Worries</a>
 
-<a class="card" href="breathing.html">
-🌬 Breathe In - Out
-</a>
+<a class="card" href="breathing.html">🌬 Breathe Exercise</a>
 
-<a class="card" href="slowlife.html">
-🐢 Help the Tortoise
-</a>
+<a class="card" href="slowlife.html">🐢 Help the Tortoise</a>
 
-<a class="card" href="balloons.html">
-🎮 Stress Relax Game
-</a>
+<a class="card" href="balloons.html">🎮 Stress Relax Game</a>
 
-<a class="card" href="journal.html">
-📓 My Journal
-</a>
-<a class="card" href="dashboard.html">
-open dashboard
-</a>
+<a class="card" href="journal.html">📓 My Journal</a>
+
+<a class="card" href="dashboard.html">📊 Mood Dashboard</a>
+
+<a class="card" href="support.html">💬 Helpline</a>
+
 </section>
 
 </div>
 
+<script>
+
+/* GREETING */
+
+let hour=new Date().getHours();
+let greet="";
+
+if(hour<12) greet="☀ Good Morning, take a deep breath.";
+else if(hour<18) greet="🌤 Good Afternoon, stay calm and focused.";
+else greet="🌙 Good Evening, relax and unwind.";
+
+document.getElementById("greeting").innerText=greet;
+
+/* QUOTES */
+
+let quotes=[
+
+"Take a deep breath. You are stronger than you think.",
+"Small steps every day lead to big change.",
+"Your mind deserves peace.",
+"Pause. Breathe. Reset.",
+"You are doing better than you think."
+
+];
+
+document.getElementById("quote").innerText=
+quotes[Math.floor(Math.random()*quotes.length)];
+
+/* MOOD */
+
+const moodMessages={
+
+Happy:[
+"That's wonderful 🌞",
+"Your happiness is powerful.",
+"Write this moment in your journal 💛"
+],
+
+Calm:[
+"Enjoy the calm 🌿",
+"Take another slow breath.",
+"Calm minds create clear thoughts."
+],
+
+Neutral:[
+"It's okay to feel neutral.",
+"Maybe try the breathing exercise.",
+"A small walk may refresh your mind."
+],
+
+Sad:[
+"I'm sorry you're feeling this way 💙",
+"You are not alone.",
+"Tomorrow can be brighter."
+],
+
+Stressed:[
+"Let's slow down together.",
+"Take a deep breath 🌿",
+"Stress is temporary."
+]
+
+};
+
+function saveMood(mood){
+
+localStorage.setItem("todayMood",mood);
+
+let responses=moodMessages[mood];
+
+let randomMessage=
+responses[Math.floor(Math.random()*responses.length)];
+
+document.getElementById("moodResult").innerHTML=
+
+"Your mood today: <b>"+mood+"</b><br><br>"+randomMessage;
+
+}
+
+/* CHAT BOT */
+
+function sendMessage(){
+
+let input=document.getElementById("chatInput");
+let box=document.getElementById("chatBox");
+
+if(input.value.trim()=="") return;
+
+let userText=input.value.toLowerCase();
+
+let userMsg="<p><b>You:</b> "+input.value+"</p>";
+
+let botReply="";
+
+if(userText.includes("sad")||userText.includes("hurt")||userText.includes("pain"))
+botReply="I'm sorry you're feeling this way 💙. Want to tell me what happened?";
+
+else if(userText.includes("stress")||userText.includes("tired"))
+botReply="That sounds overwhelming. Take a slow breath with me 🌿.";
+
+else if(userText.includes("happy")||userText.includes("good"))
+botReply="That's wonderful 🌞. What made you feel happy today?";
+
+else if(userText.includes("angry"))
+botReply="I hear your frustration. It's okay to feel angry sometimes.";
+
+else
+botReply="Your feelings are valid. Tell me more about it.";
+
+let botMsg="<p><b>CalmBot:</b> "+botReply+"</p>";
+
+box.innerHTML+=userMsg+botMsg;
+
+input.value="";
+
+box.scrollTop=box.scrollHeight;
+
+}
+
+</script>
+
 </body>
 </html>
-
