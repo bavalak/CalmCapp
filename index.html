@@ -6,17 +6,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
 <style>
 :root {
-  --primary: #4a6fa5;        /* Professional calm blue-teal */
-  --primary-dark: #2f4a7a;
-  --accent: #5a9a8e;         /* Soft teal-green for wellness feel */
-  --bg-dark: #0f172a;        /* Deep navy/gray for professional bg */
-  --glass: rgba(15, 23, 42, 0.65);
+  --primary: #4a6fa5;
+  --accent: #5a9a8e;
+  --glass: rgba(15, 23, 42, 0.78);
   --text-light: #e2e8f0;
   --text-muted: #94a3b8;
-  --blur: blur(16px);
+  --blur: blur(20px);
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -27,69 +24,64 @@ body {
   color: var(--text-light);
   min-height: 100vh;
   overflow-x: hidden;
-  position: relative;
 }
 
-body::before {
-  content: "";
-  position: fixed;
+/* Soft background layer for hero */
+.hero-bg {
+  position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 15% 20%, rgba(90,154,142,0.08) 0%, transparent 50%),
-              radial-gradient(circle at 85% 80%, rgba(74,111,165,0.06) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: -2;
+  background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.65) saturate(0.85);
+  z-index: 0;
 }
 
-/* Floating particles - softer & fewer for professionalism */
 .particles {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
-canvas { display: block; }
 
 /* MENU BUTTON */
 .menu-btn {
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   background: var(--glass);
   backdrop-filter: var(--blur);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 14px;
-  color: var(--text-light);
-  font-size: 24px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  color: white;
+  font-size: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
   transition: all 0.3s ease;
   z-index: 1001;
 }
-
-.menu-btn:hover { transform: translateY(-3px) scale(1.05); }
+.menu-btn:hover { transform: scale(1.08) rotate(10deg); }
 
 /* SIDEBAR */
 .sidebar {
   position: fixed;
-  left: -280px;
+  left: -300px;
   top: 0;
-  width: 280px;
+  width: 300px;
   height: 100%;
   background: var(--glass);
   backdrop-filter: var(--blur);
-  border-right: 1px solid rgba(255,255,255,0.1);
-  color: var(--text-light);
-  padding-top: 90px;
-  transition: left 0.4s cubic-bezier(0.23,1,0.32,1);
+  border-right: 1px solid rgba(255,255,255,0.12);
+  padding-top: 100px;
+  transition: left 0.45s cubic-bezier(0.23,1,0.32,1);
   z-index: 1000;
-  box-shadow: 12px 0 40px rgba(0,0,0,0.5);
+  box-shadow: 15px 0 50px rgba(0,0,0,0.6);
 }
-
 .sidebar.open { left: 0; }
 
 .sidebar a {
@@ -97,41 +89,36 @@ canvas { display: block; }
   padding: 18px 32px;
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 1.05rem;
-  transition: all 0.25s;
+  font-size: 1.08rem;
+  transition: all 0.3s ease;
 }
-
 .sidebar a:hover {
-  background: rgba(90,154,142,0.15);
+  background: rgba(90,154,142,0.18);
   color: white;
-  padding-left: 40px;
+  padding-left: 45px;
 }
 
 /* HEADER */
 header {
   position: fixed;
   top: 0; left: 0; right: 0;
-  padding: 18px 50px;
+  padding: 18px 60px;
   background: var(--glass);
   backdrop-filter: var(--blur);
   border-bottom: 1px solid rgba(255,255,255,0.08);
-  display: flex;
-  align-items: center;
   z-index: 900;
 }
-
 .logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;               /* Smaller & more professional */
+  font-size: 1.85rem;
   font-weight: 700;
   color: white;
-  letter-spacing: 1px;
 }
 
 /* HERO */
 .hero {
   height: 100vh;
-  min-height: 580px;
+  min-height: 620px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,78 +127,68 @@ header {
   overflow: hidden;
 }
 
-.slide {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 2s ease, transform 2s ease;
-  transform: scale(1.05);
-}
-
-.slide.active {
-  opacity: 1;
-  transform: scale(1);
-}
-
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(15,23,42,0.55), rgba(30,41,59,0.75));
-  z-index: 1;
+  background: linear-gradient(to bottom, rgba(15,23,42,0.55), rgba(30,41,59,0.88));
+  z-index: 2;
 }
 
 .hero-content-wrapper {
-  perspective: 1400px;
-  width: 88%;
-  max-width: 860px;
-  z-index: 2;
+  perspective: 1600px;
+  width: 90%;
+  max-width: 880px;
+  z-index: 3;
+  position: relative;
 }
 
 .hero-card {
   background: var(--glass);
   backdrop-filter: var(--blur);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 24px;
-  padding: 50px 40px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.45), inset 0 0 50px rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 28px;
+  padding: 62px 50px;
+  box-shadow: 
+    0 40px 100px rgba(0,0,0,0.6),
+    inset 0 0 70px rgba(255,255,255,0.1);
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
-  animation: gentleFloat 14s ease-in-out infinite;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  animation: gentleFloat 16s ease-in-out infinite;
+  position: relative;
+  z-index: 4;
 }
 
 @keyframes gentleFloat {
-  0%,100% { transform: translateY(0) rotateX(3deg) rotateY(-2deg); }
-  50%     { transform: translateY(-20px) rotateX(3deg) rotateY(-2deg); }
+  0%, 100% { transform: translateY(0) rotateX(4deg) rotateY(-3deg); }
+  50% { transform: translateY(-25px) rotateX(4deg) rotateY(-3deg); }
 }
 
 .hero-content-wrapper:hover .hero-card {
-  transform: translateY(-10px) rotateX(1.5deg) rotateY(1.5deg);
+  transform: translateY(-18px) rotateX(10deg) rotateY(12deg) !important;
 }
 
 .hero-card h1 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2.8rem, 7vw, 4.8rem);   /* Reduced max size */
-  margin: 0 0 0.3em;
+  font-size: clamp(3rem, 8.5vw, 5.4rem);
+  margin-bottom: 0.45em;
   color: white;
-  text-shadow: 0 3px 15px rgba(0,0,0,0.5);
+  text-shadow: 0 5px 25px rgba(0,0,0,0.7);
 }
 
 .hero-card p {
-  font-size: clamp(1.1rem, 2.8vw, 1.35rem);
-  max-width: 640px;
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  max-width: 680px;
   margin: 0 auto;
-  line-height: 1.65;
+  line-height: 1.72;
   color: var(--text-muted);
 }
 
 /* ABOUT SECTION */
 .container {
-  max-width: 1080px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 100px 25px 120px;
+  padding: 110px 30px 140px;
   position: relative;
   z-index: 2;
 }
@@ -219,79 +196,64 @@ header {
 .about-card {
   background: var(--glass);
   backdrop-filter: var(--blur);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 28px;
-  padding: 55px;
-  box-shadow: 0 25px 70px rgba(0,0,0,0.4);
-  color: var(--text-light);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 30px;
+  padding: 65px 60px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
 }
 
 .about-card h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.6rem;
+  font-size: 2.8rem;
   color: var(--accent);
-  margin-bottom: 1.4em;
+  margin-bottom: 1.6em;
+  text-align: center;
 }
 
 .about-card p {
-  line-height: 1.85;
-  font-size: 1.08rem;
+  line-height: 1.9;
+  font-size: 1.1rem;
   color: var(--text-muted);
-  margin-bottom: 1.6em;
+  margin-bottom: 1.8em;
 }
 
 /* FOOTER */
 footer {
-  background: rgba(15,23,42,0.95);
-  backdrop-filter: blur(14px);
+  background: rgba(15,23,42,0.96);
+  backdrop-filter: blur(16px);
   color: var(--text-muted);
-  padding: 90px 50px 50px;
-  margin-top: 60px;
+  padding: 100px 50px 60px;
 }
 
 .footer-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 45px;
-  max-width: 1080px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 50px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
-footer h4 {
-  color: white;
-  font-size: 1.25rem;
-  margin-bottom: 1.3em;
-}
+footer h4 { color: white; font-size: 1.3rem; margin-bottom: 1.4em; }
 
 footer a {
   display: block;
   color: var(--text-muted);
   text-decoration: none;
-  margin-bottom: 0.8em;
-  transition: all 0.22s;
+  margin-bottom: 0.9em;
+  transition: all 0.25s;
 }
-
 footer a:hover {
   color: white;
-  transform: translateX(6px);
+  transform: translateX(8px);
 }
 
 .copyright {
   text-align: center;
-  margin-top: 70px;
-  padding-top: 35px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  font-size: 0.95rem;
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.97rem;
 }
-
-/* Pop animation */
-@keyframes pop {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.12) translateY(-8px); }
-  70%  { transform: scale(0.96) translateY(3px); }
-  100% { transform: scale(1); }
-}
-.pop { animation: pop 0.52s ease forwards; }
 </style>
 </head>
 <body>
@@ -304,9 +266,13 @@ footer a:hover {
 
 <!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
-  <a href="dashboard.html" onclick="this.classList.add('pop'); setTimeout(()=>this.classList.remove('pop'),600)">dashboard</a>
-  <a href="landing.html" onclick="this.classList.add('pop'); setTimeout(()=>this.classList.remove('pop'),600)">user login</a>
-   <a href="ground.html" onclick="this.classList.add('pop'); setTimeout(()=>this.classList.remove('pop'),600)">grounding</a>
+  <a href="landing.html">🔑 User Login</a>
+  <a href="dashboard.html" Dashboard</a>
+  <a href="ground.html">🌱 Grounding Exercises</a>
+  <a href="breathing.html">🌬️ Breathing Exercises</a>
+  <a href="journal.html">📖 Private Journal</a>
+  <a href="progress.html">📊 My Progress</a>
+  <a href="settings.html">Settings</a>
 </div>
 
 <!-- HEADER -->
@@ -316,14 +282,18 @@ footer a:hover {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="slide active" style="background-image:url('mental1.jpg')"></div>
-  <div class="slide" style="background-image:url('mental2.jpg')"></div>
+  <!-- New Background Image Layer -->
+  <div class="hero-bg"></div>
+
+  <div class="slide active" style="background-image:url('mental1.jpg'); z-index:1; opacity:0.25;"></div>
+  <div class="slide" style="background-image:url('mental2.jpg'); z-index:1; opacity:0.25;"></div>
 
   <div class="hero-content-wrapper">
     <div class="hero-card" id="heroCard">
       <h1>CalmConnect</h1>
       <p>
-        A peaceful digital sanctuary created to help you relax, reflect, and nurture your mental wellbeing with gentle mindfulness tools.
+        A peaceful digital sanctuary created to help you relax, reflect, 
+        and nurture your mental wellbeing with gentle mindfulness tools.
       </p>
     </div>
   </div>
@@ -334,16 +304,17 @@ footer a:hover {
   <div class="about-card">
     <h2>About CalmConnect</h2>
     <p>
-      CalmConnect is a thoughtfully designed mental wellness companion that supports you in reducing stress,
-      cultivating emotional balance, and bringing more calm into daily life.
+      CalmConnect is a mindful digital companion designed to support your mental and emotional wellbeing. 
+      In today's fast-paced world, we created a serene space where you can pause, breathe, and reconnect with yourself — without judgment or pressure.
     </p>
     <p>
-      Through soothing guided meditations, ambient soundscapes, breathing exercises, and private journaling space,
-      we help you reconnect with yourself in a kind and non-judgmental way.
+      Whether you're feeling overwhelmed, anxious, or simply want to build a healthier relationship with your mind, 
+      CalmConnect offers gentle tools including guided meditations, calming soundscapes, breathing exercises, 
+      grounding techniques, and a private journaling space.
     </p>
     <p>
-      Our vision is simple: offer a safe, beautiful corner of the internet where anyone can pause, breathe deeply,
-      and gently build healthier emotional patterns — one moment at a time.
+      Our goal is to make mindfulness accessible, beautiful, and sustainable. Every feature is crafted with care 
+      to help you reduce stress, improve emotional balance, and cultivate inner peace — one mindful moment at a time.
     </p>
   </div>
 </div>
@@ -354,22 +325,23 @@ footer a:hover {
     <div>
       <h4>About</h4>
       <a href="#">Project Overview</a>
-      <a href="#">Features</a>
+      <a href="#">Our Vision</a>
       <a href="#">Technology</a>
       <a href="#">Future Scope</a>
     </div>
     <div>
-      <h4>Resources</h4>
-      <a href="#">Meditation</a>
-      <a href="#">Mindfulness</a>
-      <a href="#">Stress Relief</a>
-      <a href="#">Mental Health</a>
+      <h4>Tools</h4>
+      <a href="#">Guided Meditation</a>
+      <a href="#">Breathing Exercises</a>
+      <a href="#">Grounding Techniques</a>
+      <a href="#">Ambient Sounds</a>
+      <a href="#">Journaling</a>
     </div>
     <div>
       <h4>Support</h4>
       <a href="#">Help Center</a>
       <a href="#">FAQs</a>
-      <a href="#">Contact</a>
+      <a href="#">Contact Us</a>
       <a href="#">Feedback</a>
     </div>
   </div>
@@ -379,7 +351,7 @@ footer a:hover {
 </footer>
 
 <script>
-// Sidebar toggle
+// Sidebar Toggle
 function toggleMenu() {
   document.getElementById("sidebar").classList.toggle("open");
 }
@@ -391,46 +363,49 @@ setInterval(() => {
   slides[idx].classList.remove("active");
   idx = (idx + 1) % slides.length;
   slides[idx].classList.add("active");
-}, 6000);
+}, 6500);
 
-// 3D tilt
+// Enhanced 3D Tilt
 const card = document.getElementById("heroCard");
 if (card) {
   card.addEventListener("mousemove", e => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top  - rect.height / 2;
-    const rotateY = (x / rect.width) * 14;
-    const rotateX = -(y / rect.height) * 14;
-    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    const rotateY = (x / rect.width) * 18;
+    const rotateX = -(y / rect.height) * 18;
+    
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-18px)`;
   });
+
   card.addEventListener("mouseleave", () => {
-    card.style.transform = "rotateX(3deg) rotateY(-2deg) translateY(0)";
+    card.style.transform = "rotateX(4deg) rotateY(-3deg) translateY(0)";
   });
 }
 
-// Particles (softer, less saturated)
+// Particles
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-let particles = [];
 
+let particles = [];
 class Particle {
   constructor() { this.reset(); }
   reset() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 2.5 + 1;
-    this.speedY = Math.random() * 0.3 + 0.1;
-    this.opacity = Math.random() * 0.25 + 0.05;
+    this.size = Math.random() * 2.8 + 1.2;
+    this.speedY = Math.random() * 0.4 + 0.15;
+    this.opacity = Math.random() * 0.28 + 0.06;
   }
-  update() {
+  update() { 
     this.y -= this.speedY;
-    if (this.y < -20) this.reset();
+    if (this.y < -30) this.reset();
   }
   draw() {
-    ctx.fillStyle = `rgba(90, 154, 142, ${this.opacity})`;  // Teal-green tint
+    ctx.fillStyle = `rgba(90, 154, 142, ${this.opacity})`;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
@@ -439,7 +414,7 @@ class Particle {
 
 function init() {
   particles = [];
-  for (let i = 0; i < 50; i++) particles.push(new Particle());  // Fewer for cleaner look
+  for (let i = 0; i < 55; i++) particles.push(new Particle());
 }
 
 function animate() {
