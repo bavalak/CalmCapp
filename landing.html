@@ -1,147 +1,281 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>CalmConnect Login</title>
-
+<meta charset="UTF-8">
+<title>CalmConnect | Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
-body{
-margin:0;
-height:100vh;
-font-family:Segoe UI;
-background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
-no-repeat center center/cover;
-display:flex;
-justify-content:center;
-align-items:center;
+:root {
+  --glass: rgba(15, 23, 42, 0.75);
+  --accent: #5a9a8e;
+  --text-light: #e2e8f0;
+  --text-muted: #94a3b8;
+  --blur: blur(20px);
 }
 
-.login-box{
-width:360px;
-background:rgba(255,255,255,0.2);
-backdrop-filter:blur(10px);
-padding:40px;
-border-radius:20px;
-box-shadow:0 0 40px rgba(0,0,0,0.4);
-text-align:center;
-color:white;
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: var(--text-light);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
 }
 
-input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:10px;
-border:none;
-background:rgba(255,255,255,0.3);
-color:white;
+/* Background Image Layer - Soft & Calm (matches your hero) */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') 
+              no-repeat center center/cover;
+  filter: brightness(0.55) saturate(0.85);
+  z-index: -2;
 }
 
-input::placeholder{
-color:white;
+/* Soft overlay gradient */
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(15,23,42,0.65), rgba(30,41,59,0.85));
+  z-index: -1;
 }
 
-button{
-width:100%;
-padding:12px;
-border:none;
-border-radius:20px;
-background:#5fa4a9;
-color:white;
-font-size:16px;
-cursor:pointer;
-margin-top:5px;
+/* Particles for consistency */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 
-#error{
-margin-top:10px;
-color:#ffdede;
+/* Login Box - Glassmorphic Style */
+.login-box {
+  width: 380px;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 28px;
+  padding: 50px 40px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
-.toggle{
-margin-top:10px;
-cursor:pointer;
-color:#fff;
-text-decoration:underline;
+.login-box h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.login-box p#formTitle {
+  color: var(--accent);
+  font-size: 1.15rem;
+  margin-bottom: 30px;
+}
+
+input {
+  width: 100%;
+  padding: 16px 20px;
+  margin: 12px 0;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-size: 1.05rem;
+  transition: all 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 0 0 3px rgba(90,154,142,0.2);
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 16px;
+  background: var(--accent);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 25px rgba(90,154,142,0.35);
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(90,154,142,0.5);
+}
+
+#error {
+  margin-top: 15px;
+  color: #ff8a8a;
+  font-size: 0.95rem;
+  min-height: 20px;
+}
+
+.toggle {
+  margin-top: 20px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.98rem;
+}
+.toggle:hover {
+  color: white;
+  text-decoration: underline;
 }
 </style>
 </head>
-
 <body>
 
+<!-- Particles -->
+<div class="particles"><canvas id="canvas"></canvas></div>
+
 <div class="login-box">
-
-<h2>🌿 CalmConnect</h2>
-<p id="formTitle">Existing User Login</p>
-
-<input id="username" placeholder="Username">
-<input id="password" type="password" placeholder="Password (min 6 characters)">
-
-<button onclick="login()">Login</button>
-<button onclick="register()">Register</button>
-
-<p id="error"></p>
-
+  <h2>🌿 CalmConnect</h2>
+  <p id="formTitle">Welcome Back</p>
+  
+  <input id="username" placeholder="Username" autocomplete="off">
+  <input id="password" type="password" placeholder="Password (min 6 characters)">
+  
+  <button onclick="login()">Login</button>
+  <button onclick="register()" style="background:rgba(255,255,255,0.15); color:white;">
+    Create New Account
+  </button>
+  
+  <p id="error"></p>
+  
+  <div class="toggle" onclick="toggleForm()">Don't have an account? Register here</div>
 </div>
 
 <script>
+// Particles (same soft style as your main page)
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-/* REGISTER NEW USER */
-
-function register(){
-
-let u=document.getElementById("username").value;
-let p=document.getElementById("password").value;
-
-if(u=="" || p==""){
-error.innerText="Please enter username and password";
-return;
+let particles = [];
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2.8 + 1.2;
+    this.speedY = Math.random() * 0.4 + 0.15;
+    this.opacity = Math.random() * 0.28 + 0.06;
+  }
+  update() {
+    this.y -= this.speedY;
+    if (this.y < -30) this.reset();
+  }
+  draw() {
+    ctx.fillStyle = `rgba(90, 154, 142, ${this.opacity})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
 
-if(p.length<6){
-error.innerText="Password must be at least 6 characters";
-return;
+function init() {
+  particles = [];
+  for (let i = 0; i < 55; i++) particles.push(new Particle());
 }
 
-localStorage.setItem("cc_user",u);
-localStorage.setItem("cc_pass",p);
-
-error.innerText="Registration successful. Now login.";
-
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
 }
 
-/* LOGIN EXISTING USER */
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  init();
+});
 
-function login(){
+init();
+animate();
 
-let u=document.getElementById("username").value;
-let p=document.getElementById("password").value;
+// Login & Register Functions
+let isLoginMode = true;
 
-let savedUser=localStorage.getItem("cc_user");
-let savedPass=localStorage.getItem("cc_pass");
-
-if(p.length<6){
-error.innerText="Password must contain at least 6 characters";
-return;
+function toggleForm() {
+  isLoginMode = !isLoginMode;
+  document.getElementById("formTitle").textContent = isLoginMode ? "Welcome Back" : "Create Account";
+  document.querySelector(".toggle").textContent = isLoginMode ? 
+    "Don't have an account? Register here" : 
+    "Already have an account? Login here";
 }
 
-if(u==savedUser && p==savedPass){
+function register() {
+  let u = document.getElementById("username").value.trim();
+  let p = document.getElementById("password").value;
+  let error = document.getElementById("error");
 
-localStorage.setItem("username",u);
+  if (u === "" || p === "") {
+    error.textContent = "Please enter username and password";
+    return;
+  }
+  if (p.length < 6) {
+    error.textContent = "Password must be at least 6 characters";
+    return;
+  }
 
-window.location="home.html";
-
-}else{
-
-error.innerText="Invalid username or password";
-
+  localStorage.setItem("cc_user", u);
+  localStorage.setItem("cc_pass", p);
+  error.style.color = "#90ee90";
+  error.textContent = "Registration successful! You can now login.";
+  
+  // Auto switch to login after register
+  setTimeout(() => {
+    isLoginMode = true;
+    document.getElementById("formTitle").textContent = "Welcome Back";
+    document.querySelector(".toggle").textContent = "Don't have an account? Register here";
+    error.textContent = "";
+  }, 1800);
 }
 
-}
+function login() {
+  let u = document.getElementById("username").value.trim();
+  let p = document.getElementById("password").value;
+  let error = document.getElementById("error");
 
+  let savedUser = localStorage.getItem("cc_user");
+  let savedPass = localStorage.getItem("cc_pass");
+
+  if (u === "" || p === "") {
+    error.textContent = "Please enter username and password";
+    return;
+  }
+
+  if (u === savedUser && p === savedPass) {
+    localStorage.setItem("username", u);
+    window.location.href = "home.html";   // Change to your actual home file name if different
+  } else {
+    error.textContent = "Invalid username or password";
+  }
+}
 </script>
-
 </body>
 </html>
-
-
